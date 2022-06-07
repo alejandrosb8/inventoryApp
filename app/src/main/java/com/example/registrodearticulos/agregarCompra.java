@@ -1,8 +1,10 @@
 package com.example.registrodearticulos;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +13,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class agregarCompra extends AppCompatActivity {
 
@@ -28,12 +32,16 @@ public class agregarCompra extends AppCompatActivity {
         textView_message = findViewById(R.id.textView_message);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void agregarCompra(View view) {
 
         try {
             OutputStreamWriter file = new OutputStreamWriter(openFileOutput("compras.txt", Activity.MODE_PRIVATE));
 
-            String lineToSave = input_name.getText().toString() + "|" + input_amount.getText().toString();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+            LocalDate localDate = LocalDate.now();
+
+            String lineToSave = input_name.getText().toString() + "|" + input_amount.getText().toString() + "|" + dtf.format(localDate).toString();
 
             file.write(lineToSave);
 

@@ -3,6 +3,8 @@ package com.example.registrodearticulos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -11,40 +13,50 @@ import java.io.InputStreamReader;
 
 public class verCompras extends AppCompatActivity {
 
-    TextView lista;
+    ListView listView_compras;
+
+    String compras[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_compras);
 
-        lista = (TextView) findViewById(R.id.textView3);
-        lista.setText("\n\n\n\n\n\n\nh\n\n\n\n\nh\n\n\n\n\n\nf\n\n\nf\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHola");
+        listView_compras = findViewById(R.id.listView_compras);
 
         String files[] = fileList();
         if (fileExist(files, "compras.txt")) {
             try {
                 InputStreamReader file = new InputStreamReader(openFileInput("compras.txt"));
                 BufferedReader br = new BufferedReader(file);
-                String line = br.readLine();
-                String txt = "";
-                while(line != null) {
-                    txt += line + "\n";
-                    line = br.readLine();
+
+                int counter = 0;
+                while (br.readLine() != null) {
+                    counter++;
                 }
                 br.close();
-                file.close();
 
+                compras = new String[counter];
+                BufferedReader br2 = new BufferedReader(file);
+
+                for(int i = 0; i < counter; i++) {
+                    compras[i] = br.readLine();
+                }
+
+                br2.close();
+                file.close();
             } catch (IOException e) {
 
             }
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.activity_list_item, compras);
+        listView_compras.setAdapter(adapter);
     }
 
     // Metodo para comprobar que un archivo fichero existe.
     private boolean fileExist(String files[], String name) {
-        for(int i = 0; i < files.length; i++) {
-            if(name.equals(files[i])) {
+        for (int i = 0; i < files.length; i++) {
+            if (name.equals(files[i])) {
                 return true;
             }
         }

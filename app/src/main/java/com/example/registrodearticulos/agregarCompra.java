@@ -7,11 +7,14 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -34,16 +37,37 @@ public class agregarCompra extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void agregarCompra(View view) {
-
+        String txt = "";
         try {
+            String files[] = fileList();
+            if (fileExist(files, "compras.txt")) {
+                try {
+                    InputStreamReader file = new InputStreamReader(openFileInput("compras.txt"));
+                    BufferedReader br = new BufferedReader(file);
+                    String line = br.readLine();
+
+
+                    while (line != null) {
+                        txt += line + "_";
+                        line = br.readLine();
+                    }
+
+                    br.close();
+                    file.close();
+
+                } catch (IOException e) {
+
+                }
+            }
+
             OutputStreamWriter file = new OutputStreamWriter(openFileOutput("compras.txt", Activity.MODE_PRIVATE));
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
             LocalDate localDate = LocalDate.now();
 
-            String lineToSave = input_name.getText().toString() + "|" + input_amount.getText().toString() + "|" + dtf.format(localDate).toString();
+            String lineToSave = input_name.getText().toString() + " | " + input_amount.getText().toString() + " | " + dtf.format(localDate).toString();
 
-            file.write(lineToSave);
+            file.write(txt + lineToSave);
 
             file.flush();
             file.close();
@@ -57,12 +81,13 @@ public class agregarCompra extends AppCompatActivity {
         }
     }
 
-    /*private boolean fileExist(String files [], String fileName){
-        for(int i=0; i < files.length;i++){
-            if(fileName.equals(files[i])) {
+    // Metodo para comprobar que un archivo fichero existe.
+    private boolean fileExist(String files[], String name) {
+        for (int i = 0; i < files.length; i++) {
+            if (name.equals(files[i])) {
                 return true;
             }
         }
         return false;
-    }*/
+    }
 }

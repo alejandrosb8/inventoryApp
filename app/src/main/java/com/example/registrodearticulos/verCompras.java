@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +35,7 @@ public class verCompras extends AppCompatActivity {
                 while (line != null) {
                     txt += line + "_";
                     line = br.readLine();
+                    System.out.println(line);
                 }
                 String compras[] = txt.split("_");
 

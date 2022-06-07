@@ -49,7 +49,7 @@ public class verCompras extends AppCompatActivity {
 
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.activity_list_item, compras);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_register, compras);
         listView_compras.setAdapter(adapter);
     }
 

@@ -3,7 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/LARRI FINOL/AndroidStudioProjects/inventoryApp/app/src/main/res/layout/activity_ver_compras.xml" value="0.14855072463768115" />
+        <entry key="..\:/Users/LARRI FINOL/AndroidStudioProjects/inventoryApp/app/src/main/res/layout/activity_ver_compras.xml" value="0.25" />
+        <entry key="..\:/Users/LARRI FINOL/AndroidStudioProjects/inventoryApp/app/src/main/res/layout/activity_ver_ventas.xml" value="0.25" />
         <entry key="..\:/Users/LARRI FINOL/AndroidStudioProjects/inventoryApp/app/src/main/res/layout/list_item_register.xml" value="0.14855072463768115" />
         <entry key="..\:/Users/aleja/AndroidStudioProjects/RegistrodeArticulos/app/src/main/res/layout/activity_agregar_compra.xml" value="0.25" />
         <entry key="..\:/Users/aleja/AndroidStudioProjects/RegistrodeArticulos/app/src/main/res/layout/activity_main.xml" value="0.25" />

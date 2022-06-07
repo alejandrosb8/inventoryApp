@@ -30,12 +30,15 @@ public class verCompras extends AppCompatActivity {
             try {
                 InputStreamReader file = new InputStreamReader(openFileInput("compras.txt"));
                 BufferedReader br = new BufferedReader(file);
-                int size = (int) br.lines().count();
-                String compras[] = new String[size];
+                String line = br.readLine();
+                String txt = "";
 
-                for (int i = 0; i < compras.length; i++) {
-                    compras[i] = br.readLine();
+                while (line != null) {
+                    txt += line + "_";
+                    line = br.readLine();
                 }
+                String compras[] = txt.split("_");
+
                 br.close();
                 file.close();
 

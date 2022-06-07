@@ -1,7 +1,9 @@
 package com.example.registrodearticulos;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,8 +17,7 @@ public class verCompras extends AppCompatActivity {
 
     ListView listView_compras;
 
-    String compras[];
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,28 +30,21 @@ public class verCompras extends AppCompatActivity {
             try {
                 InputStreamReader file = new InputStreamReader(openFileInput("compras.txt"));
                 BufferedReader br = new BufferedReader(file);
+                int size = (int) br.lines().count();
+                String compras[] = new String[size];
 
-                int counter = 0;
-                while (br.readLine() != null) {
-                    counter++;
-                }
-                br.close();
-
-                compras = new String[counter];
-                BufferedReader br2 = new BufferedReader(file);
-
-                for(int i = 0; i < counter; i++) {
+                for (int i = 0; i < compras.length; i++) {
                     compras[i] = br.readLine();
                 }
-
-                br2.close();
+                br.close();
                 file.close();
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_register, compras);
+                listView_compras.setAdapter(adapter);
             } catch (IOException e) {
 
             }
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item_register, compras);
-        listView_compras.setAdapter(adapter);
     }
 
     // Metodo para comprobar que un archivo fichero existe.
